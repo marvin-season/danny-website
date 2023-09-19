@@ -39,3 +39,9 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 ```
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+
+### Branch
+The `master` branch is used for the live website. (https://vercel.com/dashboard).
+The `gh-pages` branch is used for the GitHub pages website.(https://marvin-season.github.io/danny-website/).
+The `main` branch is source code.
+The `dev` branch is used for develop doc
