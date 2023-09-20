@@ -1,0 +1,46 @@
+---
+slug: 柯里化
+title: 柯里化
+authors: [marvin-season]
+tags: [柯里化, curry, javascript, 高阶函数]
+---
+
+# 柯里化
+
+柯里化（Currying）是一种将使用多个参数的一个函数转换成一系列使用一个参数的函数的技术。
+**简言之： 利用高阶函数的特性，将函数依据参数进行部分调用**
+
+## 柯里化函数
+:::tip 
+使用 lodash 库中的**curry**将 函数add柯里化, 得到**curriedAdd**
+:::
+
+```js
+import { curry } from "lodash";
+
+const add = (p1, p2, p3) => p1 + p2 + p3;
+
+const curriedAdd = curry(add);
+```
+
+:::tip
+全额参数调用得到最终结果
+
+```js
+curriedAdd(1, 2, 3); // 6
+curriedAdd(1)(2)(3); // 6
+```
+
+部分参数调用得到其他功能函数curriedAdd100，加100的函数
+```js
+const curriedAdd100 = curriedAdd(100);
+curriedAdd100(2, 3); // 105
+```
+参数没有全额调用前，返回的都是响应的功能函数
+
+```js
+const curriedAdd105 = curriedAdd100(5);
+curriedAdd105(10); // 115
+```
+
+:::
