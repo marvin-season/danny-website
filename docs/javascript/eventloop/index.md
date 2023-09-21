@@ -1,7 +1,5 @@
 ---
-slug: eventloop
 title: Eventloop
-authors: [marvin-season]
 tags: [eventloop, javascript]
 ---
 
