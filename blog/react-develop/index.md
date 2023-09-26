@@ -2,7 +2,7 @@
 slug: React开发记录
 title: React开发记录
 authors: [marvin-season]
-tags: [React, 闭包陷阱]
+tags: [React, 闭包陷阱, scroll]
 ---
 
 ## 组件的最新状态值
@@ -82,6 +82,58 @@ useEffect(() => {
   }
 }, [settled, messages]);
 ```
+
 :::tip
-setSettled触发组件重新调用，dom更新，messages也自然是最新的值，messages的更新队列在settled之前
+setSettled 触发组件重新调用，dom 更新，messages 也自然是最新的值，messages 的更新队列在 settled 之前
+:::
+
+## 消息自动滚动
+
+### Element.scrollIntoView
+
+```jsx
+useEffect(() => {
+  if (processRef.current) {
+    processRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+}, [messages]);
+
+const div = (
+  <div style={{ height: "100px", overflow: "scroll" }}>
+    <div ref={processRef}>
+      {messages.map((item, index) => (
+        <div key={index}>{item.id}</div>
+      ))}
+    </div>
+  </div>
+);
+```
+
+:::tip
+```js
+scrollIntoView({{ behavior: "smooth", block: "end" }})
+```
+🔔 配置项 block:'end'
+
+🔔 容器元素设置固定高度，overflow: 'scroll'
+:::
+
+### Element.scrollTo
+
+```jsx
+processRef?.current.scrollTo({ left: 100, top: 200, behavior: "smooth" });
+
+const container = (
+  <div ref={processRef} style={{ height: "100px", overflow: "scroll" }}>
+    {messages.map((item, index) => (
+      <div key={index}>{item.id}</div>
+    ))}
+  </div>
+);
+```
+
+:::tip
+🔔 100 表示滚动条沿着 x 轴与坐标店的距离，200 则是 y 轴
+
+🔔 注意`processRef`和`style`在同一个元素,否则会失效
 :::
